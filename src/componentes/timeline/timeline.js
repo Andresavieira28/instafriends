@@ -2,7 +2,8 @@
 import React, { useState } from 'react'; // Importa o React e o hook useState para gerenciamento de estado
 import { getAuth } from 'firebase/auth';// Importa a função getAuth do Firebase para autenticação do usuário
 import { db } from '../../firebase'; // ajuste o caminho para seu arquivo firebase.js
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { useEffect } from 'react';
 
 
 // Importa o CSS personalizado da timeline
@@ -25,6 +26,20 @@ const Timeline = () => {
   // Obtém o usuário autenticado do Firebase
   const auth = getAuth();
   const user = auth.currentUser;
+
+  // Função para printar todoso os posts que já estão no firestore
+  useEffect(() => {
+    const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const postsData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setPosts(postsData);
+    });
+  
+    return () => unsubscribe(); // limpar o listener quando desmontar
+  }, []);
 
   // Função para criar e adicionar um novo post
   const handlePost = async () => {
