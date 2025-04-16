@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Form from './componentes/form/form';
-import Dashboard from './componentes/dashboard/dashboard';
+import Timeline from './componentes/timeline/timeline';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Form />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/timeline" element={<Timeline />} />
       </Routes>
     </Router>
   );

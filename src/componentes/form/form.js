@@ -30,7 +30,7 @@ export default function Form() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);  // Tenta autenticar o usuário com o email e senha fornecidos.
       console.log('Usuário logado:', userCredential.user);  // Exibe o usuário autenticado no console.
-      navigate('/dashboard');  // Redireciona para o dashboard após o login.
+      navigate('/timeline');  // Redireciona para o timeline após o login.
     } catch (err) {
       console.error(err);  // Exibe o erro no console.
       setError('Falha no login. Verifique o email e a senha.');  // Exibe uma mensagem de erro para o usuário.
@@ -47,7 +47,7 @@ export default function Form() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);  // Tenta criar um novo usuário.
       console.log('Usuário registrado:', userCredential.user);  // Exibe o usuário registrado no console.
-      navigate('/dashboard');  // Redireciona para o dashboard após o registro.
+      navigate('/timeline');  // Redireciona para o timeline após o registro.
     } catch (err) {
       console.error(err);  // Exibe o erro no console.
       setError('Erro ao criar conta. Verifique os dados.');  // Exibe uma mensagem de erro para o usuário.
@@ -64,7 +64,7 @@ export default function Form() {
     try {
       const result = await signInWithPopup(auth, provider);  // Tenta autenticar o usuário com o login do Google.
       console.log('Usuário logado com Google:', result.user);  // Exibe o usuário autenticado no console.
-      navigate('/dashboard');  // Redireciona para o dashboard após o login com Google.
+      navigate('/timeline');  // Redireciona para o timeline após o login com Google.
     } catch (err) {
       console.error(err);  // Exibe o erro no console.
       setError('Falha no login com Google.');  // Exibe uma mensagem de erro para o usuário.
