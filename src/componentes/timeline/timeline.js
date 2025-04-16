@@ -1,33 +1,30 @@
+import React, { useState, useEffect } from 'react';
+import { getAuth } from 'firebase/auth';
+import {
+  db
+} from '../../firebase';
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from 'firebase/firestore';
 
-import React, { useState } from 'react'; // Importa o React e o hook useState para gerenciamento de estado
-import { getAuth } from 'firebase/auth';// Importa a função getAuth do Firebase para autenticação do usuário
-import { db } from '../../firebase'; // ajuste o caminho para seu arquivo firebase.js
-import { collection, addDoc, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { useEffect } from 'react';
-
-
-// Importa o CSS personalizado da timeline
 import './timeline.css';
 
-// Componente funcional principal chamado Timeline
 const Timeline = () => {
-  // Estado que armazena os posts
   const [posts, setPosts] = useState([]);
-
-  // Estado para armazenar o conteúdo de um novo post
   const [newPost, setNewPost] = useState('');
-
-  // Estado para controlar qual post está sendo editado (pelo ID)
   const [editingPostId, setEditingPostId] = useState(null);
-
-  // Estado para armazenar o novo conteúdo durante a edição de um post
   const [editedContent, setEditedContent] = useState('');
 
-  // Obtém o usuário autenticado do Firebase
   const auth = getAuth();
   const user = auth.currentUser;
 
-  // Função para printar todoso os posts que já estão no firestore
   useEffect(() => {
     const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -37,75 +34,74 @@ const Timeline = () => {
       }));
       setPosts(postsData);
     });
-  
-    return () => unsubscribe(); // limpar o listener quando desmontar
+
+    return () => unsubscribe();
   }, []);
 
-  // Função para criar e adicionar um novo post
   const handlePost = async () => {
     if (!newPost.trim() || !user) return;
-  
+
     const randomAvatarId = Math.floor(Math.random() * 70) + 1;
-  
+
     const newEntry = {
       author: user.displayName || 'Usuário Anônimo',
       avatar: user.photoURL || `https://i.pravatar.cc/50?img=${randomAvatarId}`,
       date: new Date().toLocaleDateString('pt-BR'),
       content: newPost,
       likes: 0,
-      uid: user.uid, // útil se quiser filtrar por usuário depois
+      uid: user.uid,
       createdAt: new Date(),
     };
-  
+
     try {
-      const docRef = await addDoc(collection(db, 'posts'), newEntry);
-      setPosts([{ id: docRef.id, ...newEntry }, ...posts]); // adiciona ao estado
+      await addDoc(collection(db, 'posts'), newEntry);
       setNewPost('');
     } catch (error) {
       console.error('Erro ao salvar post:', error);
     }
   };
-  
 
-  // Função para deletar um post
-  const handleDelete = (id) => {
-    // Remove o post cujo ID corresponde ao passado
-    setPosts(posts.filter((post) => post.id !== id));
+  const handleDelete = async (id) => {
+    const post = posts.find(p => p.id === id);
+    if (post.uid !== user?.uid) return;
+
+    try {
+      await deleteDoc(doc(db, 'posts', id));
+    } catch (error) {
+      console.error('Erro ao deletar post:', error);
+    }
   };
 
-  // Função para iniciar a edição de um post
   const handleEdit = (id, content) => {
-    setEditingPostId(id); // Define qual post está sendo editado
-    setEditedContent(content); // Preenche o conteúdo atual no campo de edição
+    setEditingPostId(id);
+    setEditedContent(content);
   };
 
-  // Função para salvar as alterações de um post editado
-  const saveEdit = (id) => {
-    // Atualiza o conteúdo do post editado
-    setPosts(
-      posts.map((post) =>
-        post.id === id ? { ...post, content: editedContent } : post
-      )
-    );
+  const saveEdit = async (id) => {
+    const post = posts.find(p => p.id === id);
+    if (post.uid !== user?.uid) return;
 
-    // Reseta os estados de edição
-    setEditingPostId(null);
-    setEditedContent('');
+    try {
+      const postRef = doc(db, 'posts', id);
+      await updateDoc(postRef, { content: editedContent });
+      setEditingPostId(null);
+      setEditedContent('');
+    } catch (error) {
+      console.error('Erro ao editar post:', error);
+    }
   };
 
   return (
     <div style={{ margin: '0 auto' }}>
-      {/* Campo de input e botão para criar um novo post */}
       <div className="input-container">
         <input
           value={newPost}
-          onChange={(e) => setNewPost(e.target.value)} // Atualiza o estado com o texto digitado
+          onChange={(e) => setNewPost(e.target.value)}
           placeholder="Escreva..."
         />
-        <button onClick={handlePost}>Publicar</button> {/* Chama a função para publicar */}
+        <button onClick={handlePost}>Publicar</button>
       </div>
 
-      {/* Lista de posts renderizados dinamicamente */}
       {posts.map((post) => (
         <div
           key={post.id}
@@ -116,7 +112,6 @@ const Timeline = () => {
             marginBottom: '1rem',
           }}
         >
-          {/* Cabeçalho com avatar, autor e data */}
           <div
             style={{
               display: 'flex',
@@ -142,12 +137,11 @@ const Timeline = () => {
             </div>
           </div>
 
-          {/* Área de conteúdo do post ou campo de edição, se estiver editando */}
           {editingPostId === post.id ? (
             <>
               <input
                 value={editedContent}
-                onChange={(e) => setEditedContent(e.target.value)} // Atualiza o conteúdo editado
+                onChange={(e) => setEditedContent(e.target.value)}
                 style={{
                   width: '100%',
                   height: '80px',
@@ -155,29 +149,30 @@ const Timeline = () => {
                   marginBottom: '0.5rem',
                 }}
               />
-              <button onClick={() => saveEdit(post.id)}>Salvar</button> {/* Salva a edição */}
+              <button onClick={() => saveEdit(post.id)}>Salvar</button>
             </>
           ) : (
             <div style={{ marginBottom: '0.5rem' }}>{post.content}</div>
           )}
 
-          {/* Botões de editar e excluir */}
-          <div>
-            <button onClick={() => handleEdit(post.id, post.content)}>
-              Editar
-            </button>
-            <button
-              onClick={() => handleDelete(post.id)}
-              style={{ marginLeft: '0.5rem' }}
-            >
-              Excluir
-            </button>
-          </div>
+          {/* Só mostra os botões se for o dono do post */}
+          {post.uid === user?.uid && (
+            <div>
+              <button onClick={() => handleEdit(post.id, post.content)}>
+                Editar
+              </button>
+              <button
+                onClick={() => handleDelete(post.id)}
+                style={{ marginLeft: '0.5rem' }}
+              >
+                Excluir
+              </button>
+            </div>
+          )}
         </div>
       ))}
     </div>
   );
 };
 
-// Exporta o componente Timeline para uso em outros arquivos
 export default Timeline;
