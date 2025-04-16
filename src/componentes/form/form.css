@@ -1,0 +1,130 @@
+/* form.css */
+
+/* Definindo as cores para o tema escuro */
+:root {
+  --bg-color: #121212;
+  --card-bg-color: #1e1e1e;
+  --text-color: #e0e0e0;
+  --input-bg-color: #333333;
+  --button-bg-color: #0014ea;
+  --button-hover-color: #002ab3;
+  --error-color: #ff3d00;
+}
+
+/* Corpo da página */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 100vh; /* Ocupa toda a altura da tela */
+  min-height: 100vh; /* Garante que a altura mínima ocupe toda a tela */
+  background-size: cover; /* Caso queira fundo responsivo */
+  background-position: center; /* Mantém a posição do fundo */
+}
+
+/* Container do formulário */
+.max-w-sm {
+  max-width: 400px;
+  width: 100%;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.p-6 {
+  padding: 24px;
+}
+
+.bg-white {
+  background-color: var(--card-bg-color);
+}
+
+.rounded-xl {
+  border-radius: 12px;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center; /* Centraliza os filhos horizontalmente */
+}
+
+input {
+  background-color: var(--input-bg-color);
+  color: var(--text-color);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  font-size: 16px;
+  width: 100%; /* Ocupa toda a largura do formulário */
+  max-width: 100%; /* Garante que não ultrapasse */
+}
+
+.ou-centralizado {
+  text-align: center;
+  margin: 1rem 0;
+  color: #aaa;
+  font-size: 14px;
+}
+
+
+button {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button.bg-blue-500 {
+  background-color: var(--button-bg-color);
+  color: white;
+}
+
+button.bg-blue-500:hover {
+  background-color: var(--button-hover-color);
+}
+
+button.bg-red-500 {
+  background-color: #db4437;
+  color: white;
+}
+
+button.bg-red-500:hover {
+  background-color: #c1351d;
+}
+
+button.w-full {
+  width: 100%;
+}
+
+button.disabled\:opacity-50 {
+  opacity: 0.5;
+}
