@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/instafriends/static/css/main.a957384d.css",
+    "main.js": "/instafriends/static/js/main.32830336.js",
+    "static/js/453.3d62ab3a.chunk.js": "/instafriends/static/js/453.3d62ab3a.chunk.js",
+    "index.html": "/instafriends/index.html",
+    "main.a957384d.css.map": "/instafriends/static/css/main.a957384d.css.map",
+    "main.32830336.js.map": "/instafriends/static/js/main.32830336.js.map",
+    "453.3d62ab3a.chunk.js.map": "/instafriends/static/js/453.3d62ab3a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a957384d.css",
+    "static/js/main.32830336.js"
+  ]
+}
