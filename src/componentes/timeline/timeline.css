@@ -1,63 +1,74 @@
-/* Estilos gerais */
-body {
-  font-family: Arial, sans-serif;
-  width: 100%;
-  background-color: #ffffff;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Alinha os itens no topo */
-  min-height: 100vh;
-  overflow-y: auto;
-  padding-top: 2rem; /* Adiciona um espaçamento superior */
+.timeline-container {
+  margin: 0 auto;
 }
 
-/* Container para o input e o botão */
-.input-container {
-  width: 80%; /* 80% da largura da tela */
+.post-input-container {
+  display: flex;
+  flex-direction: column; /* Isso coloca um elemento abaixo do outro */
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-input {
+  padding: 0.5rem;
+}
+
+.post-button {
+  padding: 0.5rem 1rem;
+}
+
+.post-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.post-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.post-author-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem; /* Espaçamento entre input e botão */
 }
 
-/* Estilo do input */
-input {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  font-size: 1rem;
-  width: 100%; /* Garantir que o input ocupe a largura total do container */
+.post-author-name {
+  font-weight: bold;
+}
+
+.post-date {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.post-content {
+  margin-bottom: 0.5rem;
+}
+
+.post-edit-input {
+  width: 100%;
+  height: 80px;
   resize: none;
+  margin-bottom: 0.5rem;
 }
 
-input:focus {
-  border-color: #63d3ff;
-  outline: none;
+.post-actions {
+  display: flex;
+  gap: 0.5rem;
 }
 
-/* Estilo do botão */
-button {
-  background-color: #ff548f;
-  color: white;
-  padding: 1.4rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 100%; /* O botão ocupa a largura total */
-  display: block;
-}
-
-button:hover {
-  background-color: #c2619a;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .input-container {
-    width: 90%; /* Ajusta a largura para 90% em telas pequenas */
-  }
+.edit-button,
+.delete-button,
+.save-edit-button {
+  padding: 0.4rem 0.8rem;
 }

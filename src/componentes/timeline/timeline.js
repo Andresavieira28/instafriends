@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
-import {
-  db
-} from '../../firebase';
+import { db } from '../../firebase';
 import {
   collection,
   addDoc,
@@ -13,7 +11,7 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore';
-
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import './timeline.css';
 
 const Timeline = () => {
@@ -92,87 +90,60 @@ const Timeline = () => {
   };
 
   return (
-    <div style={{ margin: '0 auto' }}>
-      <div className="input-container">
+    <div className="timeline-container">
+      <div className="post-input-container">
         <input
+          className="post-input"
           value={newPost}
           onChange={(e) => setNewPost(e.target.value)}
           placeholder="Escreva..."
         />
-        <button onClick={handlePost}>Publicar</button>
+        <button className="post-button" onClick={handlePost}>Publicar</button>
       </div>
 
       {posts.map((post) => (
-        <div
-          key={post.id}
-          style={{
-            border: '1px solid #ccc',
-            padding: '1rem',
-            borderRadius: '8px',
-            marginBottom: '1rem',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '0.5rem',
-            }}
-          >
+        <div key={post.id} className="post-card">
+          <div className="post-header">
             <img
+              className="post-avatar"
               src={post.avatar}
               alt={post.author}
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                marginRight: '0.5rem',
-              }}
             />
-            <div>
-              <strong>{post.author}</strong>
-              <div style={{ fontSize: '0.8rem', color: '#666' }}>
-                {post.date}
-              </div>
+            <div className="post-author-info">
+              <strong className="post-author-name">{post.author}</strong>
+              <div className="post-date">{post.date}</div>
             </div>
           </div>
-
+  
           {editingPostId === post.id ? (
             <>
               <input
+                className="post-edit-input"
                 value={editedContent}
                 onChange={(e) => setEditedContent(e.target.value)}
-                style={{
-                  width: '100%',
-                  height: '80px',
-                  resize: 'none',
-                  marginBottom: '0.5rem',
-                }}
               />
-              <button onClick={() => saveEdit(post.id)}>Salvar</button>
+              <button className="save-edit-button" onClick={() => saveEdit(post.id)}>
+                Salvar
+              </button>
             </>
           ) : (
-            <div style={{ marginBottom: '0.5rem' }}>{post.content}</div>
+            <div className="post-content">{post.content}</div>
           )}
-
-          {/* Só mostra os botões se for o dono do post */}
+  
           {post.uid === user?.uid && (
-            <div>
-              <button onClick={() => handleEdit(post.id, post.content)}>
-                Editar
-              </button>
-              <button
-                onClick={() => handleDelete(post.id)}
-                style={{ marginLeft: '0.5rem' }}
-              >
-                Excluir
-              </button>
-            </div>
+          <div className="post-actions">
+            <button className="edit-button" onClick={() => handleEdit(post.id, post.content)}>
+              <FaEdit /> Editar
+            </button>
+            <button className="delete-button" onClick={() => handleDelete(post.id)}>
+              <FaTrash /> Excluir
+            </button>
+          </div>
           )}
         </div>
       ))}
     </div>
-  );
+  );  
 };
 
 export default Timeline;
