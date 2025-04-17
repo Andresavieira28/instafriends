@@ -12,7 +12,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { FaEdit, FaTrash, FaSave } from 'react-icons/fa';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import './timeline.css';
 
 const Timeline = () => {
@@ -48,7 +48,7 @@ const Timeline = () => {
       date: new Date().toLocaleDateString('pt-BR'),
       content: newPost,
       likes: 0,
-      likedBy: [], // <- novo campo
+      likedBy: [],
       uid: user.uid,
       createdAt: new Date(),
     };
@@ -59,6 +59,22 @@ const Timeline = () => {
     } catch (error) {
       console.error('Erro ao salvar post:', error);
     }
+  };
+
+  const toggleLike = async (postId) => {
+    const post = posts.find(p => p.id === postId);
+    const postRef = doc(db, 'posts', postId);
+    const alreadyLiked = post.likedBy?.includes(user.uid);
+
+    const updatedLikes = alreadyLiked ? post.likes - 1 : post.likes + 1;
+    const updatedLikedBy = alreadyLiked
+      ? post.likedBy.filter(uid => uid !== user.uid)
+      : [...(post.likedBy || []), user.uid];
+
+    await updateDoc(postRef, {
+      likes: updatedLikes,
+      likedBy: updatedLikedBy,
+    });
   };
 
   const handleDelete = async (id) => {
@@ -88,28 +104,6 @@ const Timeline = () => {
       setEditedContent('');
     } catch (error) {
       console.error('Erro ao editar post:', error);
-    }
-  };
-
-  const toggleLike = async (postId) => {
-    const post = posts.find(p => p.id === postId);
-    if (!user || !post) return;
-
-    const hasLiked = post.likedBy?.includes(user.uid);
-    const updatedLikedBy = hasLiked
-      ? post.likedBy.filter(uid => uid !== user.uid)
-      : [...(post.likedBy || []), user.uid];
-
-    const updatedLikes = updatedLikedBy.length;
-
-    try {
-      const postRef = doc(db, 'posts', postId);
-      await updateDoc(postRef, {
-        likedBy: updatedLikedBy,
-        likes: updatedLikes,
-      });
-    } catch (error) {
-      console.error('Erro ao atualizar like:', error);
     }
   };
 
@@ -154,7 +148,7 @@ const Timeline = () => {
             <div className="post-content">{post.content}</div>
           )}
 
-          <div className="post-footer">
+          <div className="post-actions-row">
             <div className="like-group">
               <button onClick={() => toggleLike(post.id)} className="like-button">
                 {post.likedBy?.includes(user?.uid) ? (
@@ -163,17 +157,18 @@ const Timeline = () => {
                   <AiOutlineHeart color="red" size={20} />
                 )}
               </button>
-
-              <span>{post.likes} curtida{post.likes !== 1 ? 's' : ''}</span>
+              <span className="like-count">
+                {post.likes} {post.likes !== 1 ? '' : ''}
+              </span>
             </div>
 
             {post.uid === user?.uid && (
-              <div className="action-group">
+              <div className="post-actions">
                 <button className="edit-button" onClick={() => handleEdit(post.id, post.content)}>
-                  <FaEdit /> 
+                  <FaEdit />
                 </button>
                 <button className="delete-button" onClick={() => handleDelete(post.id)}>
-                  <FaTrash /> 
+                  <FaTrash />
                 </button>
               </div>
             )}

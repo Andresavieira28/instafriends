@@ -100,12 +100,6 @@ body {
   margin-top: 5px;
 }
 
-.like-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .action-group {
   display: flex;
   gap: 5px;
@@ -125,4 +119,22 @@ body {
 .edit-button:hover,
 .delete-button:hover {
   color: #000;
+}
+
+.post-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.like-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.like-count {
+  font-size: 14px;
+  color: #333;
 }
