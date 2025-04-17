@@ -11,7 +11,7 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaSave } from 'react-icons/fa';
 import './timeline.css';
 
 const Timeline = () => {
@@ -123,7 +123,7 @@ const Timeline = () => {
                 onChange={(e) => setEditedContent(e.target.value)}
               />
               <button className="save-edit-button" onClick={() => saveEdit(post.id)}>
-                Salvar
+                <FaSave /> Salvar
               </button>
             </>
           ) : (

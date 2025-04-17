@@ -1,40 +1,57 @@
+body {
+  background-color: white; /* Cor de fundo da página */
+  width: 100%;
+}
 .timeline-container {
   margin: 0 auto;
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  min-width: 600px;
+  max-width: 1200px;
 }
 
 .post-input-container {
   display: flex;
   flex-direction: column; /* Isso coloca um elemento abaixo do outro */
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
 }
 
 .post-input {
+  margin-top: 20px;
   padding: 0.5rem;
+  height: 80px;
+  color: #0063f7;
+  background-color: white;
+  border-color: #ffc52c;
 }
 
 .post-button {
-  padding: 0.5rem 1rem;
+  padding: 1.0rem 1rem;
+  background-color: #030d4f;
+  color: #ffc52c;
 }
 
 .post-card {
-  border: 1px solid #ccc;
+  border: 2px solid #ffc52c;
+  background-color: white;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 12px;
   margin-bottom: 1rem;
 }
 
 .post-header {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .post-avatar {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  margin-right: 0.5rem;
+  margin-right: 1.5rem;
 }
 
 .post-author-info {
@@ -47,12 +64,12 @@
 }
 
 .post-date {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #666;
 }
 
 .post-content {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .post-edit-input {
@@ -71,4 +88,7 @@
 .delete-button,
 .save-edit-button {
   padding: 0.4rem 0.8rem;
+  margin-top: 0.5rem;
+  background-color: #e7edea;
+  width: 20%;
 }
