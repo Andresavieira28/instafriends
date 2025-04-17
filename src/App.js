@@ -4,7 +4,7 @@ import Timeline from './componentes/timeline/timeline';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/instafriends">
       <Routes>
         <Route path="/" element={<Form />} />
         <Route path="/timeline" element={<Timeline />} />
