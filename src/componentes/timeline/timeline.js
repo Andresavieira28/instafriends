@@ -12,6 +12,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { FaEdit, FaTrash, FaSave } from 'react-icons/fa';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import './timeline.css';
 
 const Timeline = () => {
@@ -47,6 +48,7 @@ const Timeline = () => {
       date: new Date().toLocaleDateString('pt-BR'),
       content: newPost,
       likes: 0,
+      likedBy: [], // <- novo campo
       uid: user.uid,
       createdAt: new Date(),
     };
@@ -89,6 +91,28 @@ const Timeline = () => {
     }
   };
 
+  const toggleLike = async (postId) => {
+    const post = posts.find(p => p.id === postId);
+    if (!user || !post) return;
+
+    const hasLiked = post.likedBy?.includes(user.uid);
+    const updatedLikedBy = hasLiked
+      ? post.likedBy.filter(uid => uid !== user.uid)
+      : [...(post.likedBy || []), user.uid];
+
+    const updatedLikes = updatedLikedBy.length;
+
+    try {
+      const postRef = doc(db, 'posts', postId);
+      await updateDoc(postRef, {
+        likedBy: updatedLikedBy,
+        likes: updatedLikes,
+      });
+    } catch (error) {
+      console.error('Erro ao atualizar like:', error);
+    }
+  };
+
   return (
     <div className="timeline-container">
       <div className="post-input-container">
@@ -114,7 +138,7 @@ const Timeline = () => {
               <div className="post-date">{post.date}</div>
             </div>
           </div>
-  
+
           {editingPostId === post.id ? (
             <>
               <input
@@ -129,21 +153,35 @@ const Timeline = () => {
           ) : (
             <div className="post-content">{post.content}</div>
           )}
-  
-          {post.uid === user?.uid && (
-          <div className="post-actions">
-            <button className="edit-button" onClick={() => handleEdit(post.id, post.content)}>
-              <FaEdit /> Editar
-            </button>
-            <button className="delete-button" onClick={() => handleDelete(post.id)}>
-              <FaTrash /> Excluir
-            </button>
+
+          <div className="post-footer">
+            <div className="like-group">
+              <button onClick={() => toggleLike(post.id)} className="like-button">
+                {post.likedBy?.includes(user?.uid) ? (
+                  <AiFillHeart color="red" size={20} />
+                ) : (
+                  <AiOutlineHeart color="red" size={20} />
+                )}
+              </button>
+
+              <span>{post.likes} curtida{post.likes !== 1 ? 's' : ''}</span>
+            </div>
+
+            {post.uid === user?.uid && (
+              <div className="action-group">
+                <button className="edit-button" onClick={() => handleEdit(post.id, post.content)}>
+                  <FaEdit /> 
+                </button>
+                <button className="delete-button" onClick={() => handleDelete(post.id)}>
+                  <FaTrash /> 
+                </button>
+              </div>
+            )}
           </div>
-          )}
         </div>
       ))}
     </div>
-  );  
+  );
 };
 
 export default Timeline;

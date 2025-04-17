@@ -90,5 +90,39 @@ body {
   padding: 0.4rem 0.8rem;
   margin-top: 0.5rem;
   background-color: #e7edea;
-  width: 20%;
+  width: 40%;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.like-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-group {
+  display: flex;
+  gap: 5px;
+}
+
+.like-button,
+.edit-button,
+.delete-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.like-button:hover,
+.edit-button:hover,
+.delete-button:hover {
+  color: #000;
 }
