@@ -1,0 +1,63 @@
+.footer {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background 0.3s ease;
+}
+
+.footer .social a {
+    margin-right: 15px;
+    color: #ffffff;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer .social a:hover {
+    transform: scale(1.1);
+    opacity: 0.75;
+}
+
+.footer .social svg {
+    width: 30px;
+    height: 30px;
+    fill: currentColor;
+}
+
+.footer .logo img {
+    max-height: 50px;
+}
+
+.footer .credit p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.footer .credit a {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer .credit a:hover {
+    text-decoration: underline;
+}
+
+/* Dark mode compatibility */
+@media (prefers-color-scheme: dark) {
+    .footer {
+        background: rgba(20, 20, 30, 0.8);
+        border-top-color: rgba(255, 255, 255, 0.1);
+        color: #f0f0f0;
+    }
+
+    .footer .credit a {
+        color: #f0f0f0;
+    }
+}

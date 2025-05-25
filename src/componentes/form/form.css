@@ -12,6 +12,31 @@
   --error-color: #db4437;
 }
 
+/* Definir altura total para html, body e root para ocupar 100% da tela */
+html, body, #root {
+  height: 80%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container principal para o conteúdo da página */
+.pagina-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* O conteúdo principal (form) cresce para ocupar o espaço disponível */
+.pagina-container > .max-w-sm {
+  flex-grow: 1;
+}
+
+/* Espaço entre o formulário e o rodapé */
+.form-container {
+  margin-bottom: 40px; /* ajuste esse valor para mais ou menos espaço */
+  margin-top: 40px; /* ajuste esse valor para mais ou menos espaço */
+}
+
 /* Corpo */
 body {
   background-color: var(--bg-color);
@@ -20,8 +45,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
+  /* removido height: 100vh para não conflitar com pagina-container */
 }
 
 /* Form container */
