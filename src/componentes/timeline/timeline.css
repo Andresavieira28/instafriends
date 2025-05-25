@@ -1,63 +1,134 @@
-body {
-  background-color: white;
-  width: 100%;
+/*
+  Reset Básico:
+  Garante que margens e paddings padrão do navegador sejam removidos.
+  Isso é crucial para evitar espaçamentos inesperados.
+*/
+html, body, #root { /* Adicionado #root, pois React apps geralmente montam neste div */
   margin: 0;
   padding: 0;
-  height: auto;
-  display: block;
-}
-.timeline-container {
-  margin: 0 auto;
-  flex-direction: column;
-  display: flex;
-  width: 80%;
-  min-width: 600px;
-  max-width: 1200px;
+  width: 100%;
+  min-height: 100vh; /* Garante que body e #root ocupem a altura total */
+  overflow-x: hidden; /* Previne rolagem horizontal indesejada */
+  box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura do elemento */
 }
 
+/*
+  app-layout:
+  Container principal que engloba toda a página (Menu, Conteúdo, Rodapé).
+  Usa flexbox para organizar seus filhos verticalmente e garantir que preencham a tela.
+*/
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Garante que o layout ocupe a altura total da viewport */
+  background-color: #f0f2f5; /* Cor de fundo suave para a página inteira */
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+/*
+  timeline-content-wrapper (Substitui o antigo 'timeline-container' para o conteúdo principal):
+  Este é o container que agora centraliza e limita a largura do input de postagem e dos posts.
+  Ele estará dentro do .app-layout, permitindo que Menu e Rodapé se expandam por 100%.
+*/
+.timeline-content-wrapper {
+  flex-grow: 1; /* Permite que este container ocupe o espaço vertical restante entre Menu e Rodapé */
+  width: 100%; /* Ocupa 100% da largura do .app-layout (que não tem padding lateral) */
+  max-width: 900px; /* Define uma largura máxima para o conteúdo principal, ajustável */
+  margin: 20px auto; /* Centraliza o conteúdo horizontalmente, e adiciona margem superior/inferior */
+  padding: 20px; /* Padding interno para o conteúdo (posts, input) dentro da caixa branca */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Post Input Section */
 .post-input-container {
   display: flex;
-  flex-direction: column; /* Isso coloca um elemento abaixo do outro */
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  flex-direction: column;
   align-items: center;
+  gap: 10px;
+  padding: 15px; /* Ajuste o padding interno para o container do input se necessário */
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  width: calc(100% - 30px); /* Ajusta a largura para considerar o padding */
+  box-sizing: border-box; /* Garante que o padding seja incluído na largura */
+  margin-bottom: 20px; /* Adiciona uma margem inferior para separar do próximo elemento (o card) */
 }
 
+/* O restante do seu CSS permanece o mesmo */
 .post-input {
-  margin-top: 20px;
-  padding: 0.5rem;
-  height: 80px;
-  color: #0063f7;
-  background-color: white;
-  border-color: #ffc52c;
+  flex-grow: 1;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 0;
+  padding: 15px 12px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-input:focus {
+  outline: none;
+  border-color: #6a4c93; /* A soft purple for focus */
+  box-shadow: 0 0 0 3px rgba(106, 76, 147, 0.2);
 }
 
 .post-button {
-  padding: 1.0rem 1rem;
-  background-color: #030d4f;
-  color: #ffc52c;
-  width: 25%;
+  width: 50%;
+  padding: 12px 25px;
+  background-color: #8a2be2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
 }
 
+.post-button:hover {
+  background-color: #6a1ac1; /* Darker purple on hover */
+  transform: translateY(-2px);
+}
+
+.post-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(138, 43, 226, 0.3);
+}
+
+/* Post Card Styling (sem alterações aqui, a separação virá da margem do input container) */
 .post-card {
-  border: 2px solid #ffc52c;
-  background-color: white;
-  padding: 1rem;
+  background-color: #ffffff;
   border-radius: 12px;
-  margin-bottom: 1rem;
+  padding: 20px;
+  margin-bottom: 15px; /* Já existe uma margem entre os cards, que é boa */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #ebebeb;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .post-header {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 15px;
 }
 
 .post-avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 1.5rem;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 2px solid #8a2be2; /* Purple border for avatars */
 }
 
 .post-author-info {
@@ -66,81 +137,163 @@ body {
 }
 
 .post-author-name {
-  font-weight: bold;
+  font-weight: 700;
+  color: #333;
+  font-size: 1.1em;
 }
 
 .post-date {
-  font-size: 1rem;
-  color: #666;
+  font-size: 0.85em;
+  color: #777;
+  margin-top: 2px;
 }
 
 .post-content {
-  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 20px;
+  white-space: pre-wrap; /* Preserves formatting */
+  word-wrap: break-word; /* Breaks long words */
 }
 
+/* Edit Post Section */
 .post-edit-input {
   width: 100%;
-  height: 80px;
-  resize: none;
-  margin-bottom: 0.5rem;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.post-actions {
-  display: flex;
-  gap: 0.5rem;
+.post-edit-input:focus {
+  outline: none;
+  border-color: #6a4c93;
+  box-shadow: 0 0 0 3px rgba(106, 76, 147, 0.2);
 }
 
-.edit-button,
-.delete-button,
 .save-edit-button {
-  padding: 0.4rem 0.8rem;
-  margin-top: 0.5rem;
-  background-color: #e7edea;
-  width: 40%;
-}
-
-.post-footer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 5px;
-}
-
-.action-group {
-  display: flex;
   gap: 5px;
-}
-
-.like-button,
-.edit-button,
-.delete-button {
-  background-color: transparent;
+  width: 10%;
+  align-items: center ;
+  padding: 8px 15px;
+  background-color: #28a745; /* Green for save */
+  color: white;
   border: none;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 18px;
-  color: #555;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
-.like-button:hover,
-.edit-button:hover,
-.delete-button:hover {
-  color: #000;
+.save-edit-button:hover {
+  background-color: #218838;
 }
 
+/* Post Actions (Like, Edit, Delete) */
 .post-actions-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  margin-top: 15px;
 }
 
 .like-group {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.like-button:hover {
+  transform: scale(1.1);
 }
 
 .like-count {
-  font-size: 14px;
-  color: #333;
+  font-size: 0.95em;
+  color: #555;
+  font-weight: 600;
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.edit-button {
+  color: #007bff; /* Blue for edit */
+}
+
+.edit-button:hover {
+  background-color: #e7f3ff;
+  color: #0056b3;
+}
+
+.delete-button {
+  color: #dc3545; /* Red for delete */
+}
+
+.delete-button:hover {
+  background-color: #ffebeb;
+  color: #a71d2a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* No padding direto no body/html, ele será gerenciado pelo .app-layout e .timeline-content-wrapper */
+
+  .timeline-content-wrapper {
+    margin: 15px auto; /* Margem superior/inferior, centralizado. Lateral será de 100% - padding */
+    padding: 15px; /* Padding interno do conteúdo */
+    border-radius: 8px;
+  }
+
+  .post-input-container {
+    flex-direction: column;
+  }
+
+  .post-button {
+    width: 100%;
+  }
+
+  .post-card {
+    padding: 15px;
+  }
+}
+
+/* Para telas muito grandes (opcional, para controlar a largura máxima em displays gigantes) */
+@media (min-width: 1400px) {
+  .timeline-content-wrapper {
+    max-width: 1100px; /* Ou um valor maior se preferir */
+  }
 }

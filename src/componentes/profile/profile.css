@@ -1,0 +1,234 @@
+/*
+  profile.css
+  Estilos para a página de perfil do usuário.
+*/
+
+/* O container principal já é coberto por .app-layout em timeline.css */
+
+/*
+  profile-page-wrapper:
+  Ajustes específicos para a página de perfil, usando a mesma base do timeline-content-wrapper.
+*/
+.profile-page-wrapper {
+  margin-bottom: 40px; /* Adiciona um espaço extra abaixo do card de perfil antes do rodapé */
+}
+
+/*
+  profile-title:
+  Estilo para o título principal da página de perfil.
+*/
+.profile-title {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/*
+  profile-card:
+  Um container para agrupar as informações do perfil, similar a um post-card.
+*/
+.profile-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ebebeb;
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Espaçamento entre o header e o grid de detalhes */
+  max-width: 700px; /* Limita a largura do card para melhor legibilidade */
+  margin: 0 auto; /* Centraliza o card na página */
+}
+
+/*
+  profile-header:
+  Contém o avatar e as informações principais (nome, email).
+*/
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0; /* Separador sutil */
+}
+
+/*
+  profile-avatar:
+  Estilo para a imagem de perfil.
+*/
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #8a2be2; /* Borda roxa vibrante */
+  box-shadow: 0 0 0 6px rgba(138, 43, 226, 0.1); /* Sombra suave para profundidade */
+}
+
+/*
+  profile-main-info:
+  Container para o nome e email principais.
+*/
+.profile-main-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+  profile-name:
+  Estilo para o nome do usuário.
+*/
+.profile-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 5px 0;
+}
+
+/*
+  profile-email:
+  Estilo para o email do usuário.
+*/
+.profile-email {
+  font-size: 1.05rem;
+  color: #777;
+  margin: 0;
+}
+
+/*
+  profile-details-grid:
+  Layout de grade para exibir os detalhes do perfil.
+*/
+.profile-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsivo com colunas de largura mínima */
+  gap: 15px 25px; /* Espaçamento entre itens da grade */
+}
+
+/*
+  detail-item:
+  Estilo para cada item de detalhe (label: valor).
+*/
+.detail-item {
+  font-size: 1rem;
+  color: #555;
+  display: flex;
+  flex-direction: column; /* Coloca o label e o valor em linhas separadas */
+  gap: 3px;
+}
+
+.detail-item strong {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+  font-size: 0.95rem; /* Ajusta o tamanho da fonte da label */
+  text-transform: uppercase; /* Deixa as labels em maiúsculas */
+  opacity: 0.8;
+}
+
+.detail-item span {
+  color: #666;
+  font-size: 1.05rem;
+  word-break: break-word; /* Garante que textos longos quebrem a linha */
+}
+
+/*
+  profile-actions: (Opcional, se você adicionar botões)
+  Container para botões de ação do perfil.
+*/
+/*
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.edit-profile-button,
+.logout-button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 600;
+}
+
+.edit-profile-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.edit-profile-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
+}
+
+.logout-button:hover {
+  background-color: #a71d2a;
+  transform: translateY(-1px);
+}
+*/
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+  .profile-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+
+  .profile-card {
+    padding: 20px;
+    margin: 0 15px; /* Adiciona margem lateral em telas menores */
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-width: 3px;
+  }
+
+  .profile-name {
+    font-size: 1.5rem;
+  }
+
+  .profile-email {
+    font-size: 0.95rem;
+  }
+
+  .profile-details-grid {
+    grid-template-columns: 1fr; /* Uma única coluna em telas muito pequenas */
+    gap: 15px;
+  }
+
+  .detail-item {
+    font-size: 0.95rem;
+  }
+
+  .detail-item strong {
+    font-size: 0.9rem;
+  }
+
+  .detail-item span {
+    font-size: 1rem;
+  }
+}

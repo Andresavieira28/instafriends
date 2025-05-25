@@ -13,10 +13,9 @@ import {
 } from 'firebase/firestore';
 import { FaEdit, FaTrash, FaSave } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import './timeline.css';
+import './timeline.css'; // Mantenha a importação do CSS
 import Menu from '../menu/menu';
 import Rodape from '../rodape/rodape';
-
 
 const Timeline = () => {
   const [posts, setPosts] = useState([]);
@@ -27,6 +26,7 @@ const Timeline = () => {
   const auth = getAuth();
   const user = auth.currentUser;
 
+  // Efeito para carregar posts
   useEffect(() => {
     const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -40,6 +40,7 @@ const Timeline = () => {
     return () => unsubscribe();
   }, []);
 
+  // Handler para criar um novo post
   const handlePost = async () => {
     if (!newPost.trim() || !user) return;
 
@@ -64,15 +65,16 @@ const Timeline = () => {
     }
   };
 
+  // Handler para curtir/descurtir um post
   const toggleLike = async (postId) => {
     const post = posts.find(p => p.id === postId);
     const postRef = doc(db, 'posts', postId);
-    const alreadyLiked = post.likedBy?.includes(user.uid);
+    const alreadyLiked = post.likedBy?.includes(user?.uid);
 
     const updatedLikes = alreadyLiked ? post.likes - 1 : post.likes + 1;
     const updatedLikedBy = alreadyLiked
-      ? post.likedBy.filter(uid => uid !== user.uid)
-      : [...(post.likedBy || []), user.uid];
+      ? post.likedBy.filter(uid => uid !== user?.uid)
+      : [...(post.likedBy || []), user?.uid];
 
     await updateDoc(postRef, {
       likes: updatedLikes,
@@ -80,6 +82,7 @@ const Timeline = () => {
     });
   };
 
+  // Handler para deletar um post
   const handleDelete = async (id) => {
     const post = posts.find(p => p.id === id);
     if (post.uid !== user?.uid) return;
@@ -91,11 +94,13 @@ const Timeline = () => {
     }
   };
 
+  // Handler para iniciar a edição de um post
   const handleEdit = (id, content) => {
     setEditingPostId(id);
     setEditedContent(content);
   };
 
+  // Handler para salvar a edição de um post
   const saveEdit = async (id) => {
     const post = posts.find(p => p.id === id);
     if (post.uid !== user?.uid) return;
@@ -111,11 +116,13 @@ const Timeline = () => {
   };
 
   return (
-    <div className="page-container">
-        <div className="timeline-menu">
-          <Menu />
-        </div>
-      <div className="timeline-container">
+    // Reintroduzindo um container principal para gerenciar o layout de toda a página
+    <div className="app-layout">
+      {/* Menu no topo, ocupando 100% da largura */}
+      <Menu />
+
+      {/* Conteúdo principal da timeline, com largura controlada */}
+      <div className="timeline-content-wrapper">
         <div className="post-input-container">
           <input
             className="post-input"
@@ -184,6 +191,7 @@ const Timeline = () => {
         ))}
       </div>
 
+      {/* Rodapé na parte inferior, ocupando 100% da largura */}
       <Rodape />
     </div>
   );

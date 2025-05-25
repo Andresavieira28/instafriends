@@ -1,74 +1,116 @@
+/* Estilos para o container principal do menu */
 .menu-container {
+  background-color: #f8f9fa; /* Cinza Claro */
+  color: #343a40; /* Cinza Escuro */
   display: flex;
   justify-content: space-between;
-  background-color: rgba(119, 119, 118, 0.49);
   align-items: center;
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  position: relative;
+  padding: 10px 20px;
+  border-bottom: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sutil sombra para destaque */
 }
 
+/* Estilos para a seção de informações do usuário logado */
 .menu-userlogado {
   display: flex;
   align-items: center;
-  font-weight: bold;
 }
 
-.menu-hamburguer {
-  position: relative;
+.user-info {
   display: flex;
   align-items: center;
 }
 
+.user-avatar {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: cover; /* Garante que a imagem preencha o espaço */
+}
+
+.user-name {
+  margin-left: 10px;
+  font-weight: 500; /* Um pouco mais de destaque para o nome */
+}
+
+/* Estilos para o título/nome da rede social */
+.menu-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: hwb(211 0% 0%); /* Azul Elétrico */
+  letter-spacing: 1.5px; /* Espaçamento entre as letras para um visual moderno */
+  text-transform: uppercase; /* Deixa em maiúsculas */
+}
+
+/* Estilos para o container do botão hambúrguer e dropdown */
+.menu-hamburguer {
+  position: relative;
+}
+
+/* Estilos para o botão hambúrguer */
 .menu-button {
   background: transparent;
   border: none;
+  font-size: 1.8em; /* Um pouco maior para ser mais visível */
+  color: #20c997; /* Verde Água */
   cursor: pointer;
-  padding: 10px;
-  font-size: 24px;
-  user-select: none;
+  padding: 5px; /* Adiciona um pouco de padding para facilitar o clique */
+  transition: color 0.2s ease-in-out; /* Transição suave na cor */
 }
 
+.menu-button:hover {
+  color: #1a9e7a; /* Um tom mais escuro de verde ao passar o mouse */
+}
+
+/* Estilos para o menu dropdown */
 .menu-dropdown {
   position: absolute;
+  top: 100%; /* Posiciona logo abaixo do botão */
   right: 0;
-  top: 50px;
   background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  width: 180px;
-  z-index: 1000;
-  padding: 8px 0;
-  animation: fadeIn 0.2s ease-in-out;
+  border-radius: 8px; /* Cantos mais arredondados */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+  z-index: 10;
+  min-width: 180px; /* Largura mínima para os itens */
+  overflow: hidden; /* Garante que os cantos arredondados sejam respeitados */
 }
 
+/* Estilos para os itens do menu dropdown */
 .menu-item {
   display: block;
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 15px; /* Mais padding para maior área de clique */
   border: none;
-  background: none;
+  background-color: transparent;
   text-align: left;
-  font-size: 14px;
-  color: #333;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  color: #343a40;
+  font-size: 1em;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .menu-item:hover {
-  background-color: #f5f5f5;
-  color: #007bff; /* azul suave ao passar o mouse */
+  background-color: #e9ecef; /* Um cinza bem claro ao passar o mouse */
+  color: #007bff; /* Azul Elétrico no hover para um toque vibrante */
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.menu-item:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
+/* Estilos básicos de responsividade para telas menores */
+@media (max-width: 768px) {
+  .menu-container {
+    padding: 10px 15px;
+  }
+
+  .menu-title {
+    font-size: 1em;
+  }
+
+  .user-name {
+    display: none; /* Esconde o nome do usuário em telas menores */
+  }
+}
