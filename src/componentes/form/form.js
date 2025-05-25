@@ -93,6 +93,16 @@ export default function Form() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <div className="btn-link-gray">
+            <button
+              type="button"
+              className="botao-esqueci-senha"
+              onClick={() => navigate('/Password')}
+            >
+              Esqueci minha senha
+            </button>
+
+          </div>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:opacity-50"
