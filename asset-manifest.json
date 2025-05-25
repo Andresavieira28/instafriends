@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/instafriends/static/css/main.a0b38876.css",
-    "main.js": "/instafriends/static/js/main.f321309a.js",
+    "main.css": "/instafriends/static/css/main.1299bbc7.css",
+    "main.js": "/instafriends/static/js/main.f83ec9b7.js",
     "static/js/453.3d62ab3a.chunk.js": "/instafriends/static/js/453.3d62ab3a.chunk.js",
     "index.html": "/instafriends/index.html",
-    "main.a0b38876.css.map": "/instafriends/static/css/main.a0b38876.css.map",
-    "main.f321309a.js.map": "/instafriends/static/js/main.f321309a.js.map",
+    "main.1299bbc7.css.map": "/instafriends/static/css/main.1299bbc7.css.map",
+    "main.f83ec9b7.js.map": "/instafriends/static/js/main.f83ec9b7.js.map",
     "453.3d62ab3a.chunk.js.map": "/instafriends/static/js/453.3d62ab3a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a0b38876.css",
-    "static/js/main.f321309a.js"
+    "static/css/main.1299bbc7.css",
+    "static/js/main.f83ec9b7.js"
   ]
 }
