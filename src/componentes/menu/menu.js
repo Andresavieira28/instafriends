@@ -79,6 +79,10 @@ const Menu = () => {
               Feed
             </button>
 
+            <button onClick={() => navigate("/About")} className="menu-item">
+              Sobre nós
+            </button>
+
             <button onClick={handleLogout} className="menu-item">
               Logout
             </button>

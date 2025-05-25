@@ -283,11 +283,11 @@ html, body, #root { /* Adicionado #root, pois React apps geralmente montam neste
   }
 
   .post-button {
-    width: 100%;
+    width: 80%;
   }
 
   .post-card {
-    padding: 15px;
+    padding: 20px;
   }
 }
 
