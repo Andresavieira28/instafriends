@@ -1,0 +1,74 @@
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(119, 119, 118, 0.49);
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.menu-userlogado {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.menu-hamburguer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 24px;
+  user-select: none;
+}
+
+.menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  width: 180px;
+  z-index: 1000;
+  padding: 8px 0;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.menu-item {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
+  color: #007bff; /* azul suave ao passar o mouse */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

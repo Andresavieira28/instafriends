@@ -14,7 +14,9 @@ import {
 import { FaEdit, FaTrash, FaSave } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import './timeline.css';
+import Menu from '../menu/menu';
 import Rodape from '../rodape/rodape';
+
 
 const Timeline = () => {
   const [posts, setPosts] = useState([]);
@@ -110,6 +112,9 @@ const Timeline = () => {
 
   return (
     <div className="page-container">
+        <div className="timeline-menu">
+          <Menu />
+        </div>
       <div className="timeline-container">
         <div className="post-input-container">
           <input
