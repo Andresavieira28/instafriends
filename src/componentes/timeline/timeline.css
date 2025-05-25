@@ -1,12 +1,16 @@
 body {
-  background-color: white; /* Cor de fundo da página */
+  background-color: white;
   width: 100%;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  display: block;
 }
 .timeline-container {
   margin: 0 auto;
   flex-direction: column;
   display: flex;
-  width: 100%;
+  width: 80%;
   min-width: 600px;
   max-width: 1200px;
 }
@@ -16,6 +20,7 @@ body {
   flex-direction: column; /* Isso coloca um elemento abaixo do outro */
   gap: 1.5rem;
   margin-bottom: 3rem;
+  align-items: center;
 }
 
 .post-input {
@@ -31,6 +36,7 @@ body {
   padding: 1.0rem 1rem;
   background-color: #030d4f;
   color: #ffc52c;
+  width: 25%;
 }
 
 .post-card {
